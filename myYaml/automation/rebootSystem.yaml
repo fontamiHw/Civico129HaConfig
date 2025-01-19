@@ -1,0 +1,20 @@
+- alias: "HA Reboot"
+  id: '1710683870287'
+  description: "Reboot System from a button pressed"
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.reset_ha
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: state
+    entity_id:
+    - input_boolean.reset_ha
+    to: 'on'
+  condition: []
+  action:
+    - service: hassio.host_reboot
+#- service: homeassistant.restart

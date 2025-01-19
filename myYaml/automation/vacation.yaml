@@ -1,0 +1,36 @@
+- alias: "Vacation Switch off Ligth"
+  description: "switch off all lights at midnight.... maybe it has been switched on from remote"
+  trigger:
+    platform: time
+    at: "00:00:00"
+  condition: 
+    - condition: state
+      entity_id: input_boolean.out_of_home
+      state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: group.all_lights
+
+- alias: "Vacation"
+  trigger:
+    platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'on'
+  condition: []
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.time_to_sleep
+    - service: homeassistant.turn_off
+      entity_id: group.all_lights
+
+
+- alias: "Return Vacation"
+  trigger:
+    platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'off'
+  condition: []
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.time_to_sleep
+

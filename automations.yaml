@@ -1,0 +1,17 @@
+- id: '1737275935194'
+  alias: New automation
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.main_door_sensor
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - action: input_boolean.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.test_button
+  mode: single

@@ -1,0 +1,99 @@
+Riferimenti a componeneti
+https://www.awesome-ha.com/#themes
+
+installati:
+https://github.com/atomic7777/atomic_calendar
+https://github.com/custom-cards/canvas-gauge-card
+
+interessanti:
+mediaPlayer = https://github.com/kalkih/mini-media-player
+slideShow = https://github.com/zsarnett/slideshow-card
+dual gauge = https://github.com/custom-cards/dual-gauge-card
+
+
+
+personalizzazione ikea:
+https://italiadomotica.it/tutorial/home-assistant-configurazione-ikea-tradfri-e-personalizzazione/
+
+appDaemon:
+per fare piu' wildcard = https://community.home-assistant.io/t/how-to-call-home-assistant-entities-in-an-mqtt-class/86568/15
+
+
+
+
+
+Installate zigbee2mqtt
+https://www.zigbee2mqtt.io/getting_started/running_zigbee2mqtt.html
+
+Flash CC2531:
+1) riconoscere la porta ls -l /dev/serial/by-id
+2) installare cc-tools = https://snapcraft.io/install/cc-tool/ubuntu
+3) https://www.zigbee2mqtt.io/information/flashing_the_cc2531.html
+4) Muoversi dove si scompatta il file zip  e 'sudo cc-tool.run -e -w CC2531ZNP-Prod.hex'
+
+
+
+Interagire in RestApi con motionEyes
+1) interessante articolo di spiege
+  https://indomus.it/progetti/realizzare-un-nvr-network-video-recorder-per-videosorveglianza-con-motioneye-parte-2
+2) webcontrol API https://motion-project.github.io/motion_config.html#OptDetail_Webcontrol
+3) attivare RestApi in Homeassistant 
+          https://developers.home-assistant.io/docs/api/rest
+	  wget -q -O - "http://10.58.1.2:7999/1/detection/status" | grep Camera | sed -e "s/<[^>]*>//g" -e "s/.*Camera/Camera/"
+4) leggere qui come fare boolean che sente il motion
+     https://community.home-assistant.io/t/motioneye-home-assistant-camera-motion-automation/41712/3
+
+
+
+
+card configuration
+ per calendar
+   type: "custom:atomic-calendar"
+  title: "Calendar"
+  entities:
+    - calendar.famsmkk_gmail_com
+  fullDayEventText: 'All day'
+  untilText: 'Until'
+  showColors: true
+  maxDaysToShow: 7
+  showLocation: true
+  showMonth: false
+  showCurrentEventLine: false
+  dateColor: black
+  dateSize: 90
+  timeColor: blue
+  timeSize: 90
+  titleColor: black
+  titleSize: 100
+  locationIconColor: 'rgb(230, 124, 115)'
+  locationLinkColor: black
+  locationTextSize: 90
+  dimFinishedEvents: true
+  finishedEventOpacity: 0.6
+  finishedEventFilter: 'grayscale(100%)'
+  dayWrapperLineColor: black
+  eventBarColor: blue
+  showProgressBar: true
+  progressBarColor: blue
+
+
+  per sapere tutti i domain usare questo template:
+  {{ states | groupby('domain') | map(attribute='0') | list | join('\n') }}
+
+
+
+
+  Telegram:
+  - usato da HA:
+    api_key: 844012565:AAGeHi7GGm4M9vQ-hP3oHGuQ4rOhLnDO7HE Civico129
+    chat_id: 844012565
+  - usato da AppDaemon:
+    api_key: 6578833047:AAHyefZ5OQNJZNlaDbjxd_mgr9vtFCHoO8c
+    chat_id: 6578833047
+
+  - per create bot
+     pip install python-telegram-bot requests
+     esempi di python-telegram-bot : https://github.com/python-telegram-bot/python-telegram-bot/tree/master/examples
+
+  per provare a interagire
+       https://www.vincenzocaputo.com/langolo_dei_lettori/casa-domotica-con-telegram-e-home-assistant-136

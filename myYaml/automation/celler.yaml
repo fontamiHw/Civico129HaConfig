@@ -1,0 +1,39 @@
+# read Celler sensor MD to automate light
+- alias: "Turn on Celler Light"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.celler_md
+    to: 'on'
+  condition: []
+  action:
+    - service: light.turn_on
+      entity_id: light.celler_light
+
+- alias: "Turn off Celler Light"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.celler_md
+    to: 'off'
+  condition: []
+  action:
+    - service: light.turn_off
+      entity_id: light.celler_light
+
+- alias: "Turn off Celler Time to sleep"
+  trigger:
+    platform: state
+    entity_id: light.celler_light
+    to: 'on'
+    for:
+      seconds: "100" 
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.time_to_sleep
+        state: 'on'
+  action:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.celler_light

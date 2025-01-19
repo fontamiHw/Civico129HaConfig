@@ -1,0 +1,35 @@
+- id: '1704449191737'
+  alias: Activate ExternalCamera Switch
+  description: Activate the motion sensor of the external camera by the switch
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.activate_external_cam
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: shell_command.motioneye_camera1_start
+    data: {}
+  - service: notify.telegram_family
+    data:
+      message: Camera Activated
+  mode: single
+- id: '1704449297914'
+  alias: Deactivate ExternalCamera Switch
+  description: Deactivate the motion sensor of the external camera by the switch
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.activate_external_cam
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: shell_command.motioneye_camera1_pause
+    data: {}
+  - service: notify.telegram_family
+    data:
+      message: Camera Deactivated
+  mode: single
+

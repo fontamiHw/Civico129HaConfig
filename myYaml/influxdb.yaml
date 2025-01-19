@@ -1,0 +1,14 @@
+ database: home_assistant
+ username: 'civico129'
+ password: 'AvrAndro1'
+ include:
+    domains:
+      - sensor
+      - switch
+      - light
+    entity_globs:
+      - sensor.humidity.taverna
+      - sensor.humidity.roof
+#exclude:
+#    entities:
+#      - light.kitchen_light

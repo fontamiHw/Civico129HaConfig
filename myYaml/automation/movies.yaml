@@ -1,0 +1,15 @@
+- id: "1736067920893"
+  alias: movies list
+  description: manda messaggi di quanti film sono pronti
+  triggers:
+    - trigger: state
+      entity_id:
+        - sensor.movies_ready
+  conditions: []
+  actions:
+    - action: notify.telegram_family
+      metadata: {}
+      data:
+        message: "movies are {{ states('sensor.movies_ready') }}"
+        title: Civico129 Movies
+  mode: single

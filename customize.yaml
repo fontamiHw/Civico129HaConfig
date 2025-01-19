@@ -1,0 +1,11 @@
+zone.home: {}
+sensor.raccolta_indifferenziato:
+  friendly_name: Indifferenziato - Mattino
+sensor.raccolta_carta:
+  friendly_name: Carta - Mattino
+sensor.raccolta_organico:
+  friendly_name: Organico - Mattino
+sensor.raccolta_plastica:
+  friendly_name: Plastica - Mattino
+sensor.raccolta_vetro:
+  friendly_name: Vetro - Mattino

@@ -1,0 +1,25 @@
+SHELLY2.5
+i messaggi sono di solito formattati cosi'
+shellies/shellyswitch25-<shellyId>  Il mio primo shelly ha id=C4D0CE
+pero' si puo' riconfiburare la parte shellyswitch25-<shellyId> dal sito web che 
+punta allo ip del Shelly stesso
+
+Qui la serie di messaggi alla partenza:
+
+shellies/living-room/online true
+shellies/living-room/relay/0 off
+shellies/living-room/relay/0/power 0.00
+shellies/living-room/relay/0/energy 0
+shellies/living-room/relay/1 off
+shellies/living-room/relay/1/power 0.00
+shellies/living-room/relay/1/energy 0
+shellies/living-room/input/0 0
+shellies/living-room/input/1 0
+shellies/living-room/temperature 48.98
+shellies/living-room/temperature_f 120.16
+shellies/living-room/overtemperature 0
+
+
+
+TASMOTA
+commands = https://github.com/arendst/Tasmota/wiki/commands

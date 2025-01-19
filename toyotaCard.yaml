@@ -1,0 +1,72 @@
+
+#da mettere in un picture card element
+
+elements:
+  - entity: binary_sensor.corolla_driverseat_window
+    image: /local/alert-.svg
+    state_filter:
+      'off': brightness(5%) saturate(1) transparency(100%)
+      'on': brightness(200%) saturate(100) drop-shadow(0px 0px 0px gold)
+    state_image:
+      'on': /local/alert.svg
+    style:
+      left: 49%
+      padding: 10px
+      top: 86%
+      width: 5%
+    type: image
+  - entity: binary_sensor.corolla_leftrearseat_window
+    image: /local/alert-.svg
+    state_filter:
+      'off': brightness(5%) saturate(1) transparency(100%)
+      'on': brightness(200%) saturate(100) drop-shadow(0px 0px 0px gold)
+    state_image:
+      'on': /local/alert.svg
+    style:
+      left: 70%
+      padding: 10px
+      top: 86%
+      width: 5%
+    type: image
+  - entity: binary_sensor.corolla_passengerseat_window
+    image: /local/alert-.svg
+    state_filter:
+      'off': brightness(5%) saturate(1) transparency(100%)
+      'on': brightness(200%) saturate(100) drop-shadow(0px 0px 0px gold)
+    state_image:
+      'on': /local/alert.svg
+    style:
+      left: 49%
+      padding: 10px
+      top: 13%
+      width: 5%
+    type: image
+  - entity: binary_sensor.corolla_rightrearseat_window
+    image: /local/alert-.svg
+    state_filter:
+      'off': brightness(5%) saturate(1) transparency(100%)
+      'on': brightness(200%) saturate(100) drop-shadow(0px 0px 0px gold)
+    state_image:
+      'on': /local/alert.svg
+    style:
+      left: 70%
+      padding: 10px
+      top: 13%
+      width: 5%
+    type: image
+  - entity: binary_sensor.corolla_trunk_door
+    image: /local/alert-.svg
+    state_filter:
+      'off': brightness(0%) saturate(1) transparency(100%)
+      'on': brightness(200%) saturate(100) drop-shadow(0px 0px 0px gold)
+    state_image:
+      'on': /local/alert.svg
+    style:
+      left: 90%
+      padding: 10px
+      top: 48%
+      width: 5%
+    type: image
+image: /local/toyota-ha.png
+type: picture-elements
+

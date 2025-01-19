@@ -1,0 +1,36 @@
+- alias: Set Taverna Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.taverna_power_on_set
+  condition: []
+  action:
+    service: mqtt.publish
+    data_template:
+      topic: "cmnd/celler/PowerOnState"
+      retain: true
+      payload: "{{ states('input_select.taverna_power_on_sen') }}"
+    
+- alias: Set Tasmota 2 Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.tasmota_2_power_on_set
+  condition: []
+  action:
+    service: mqtt.publish
+    data_template:
+      topic: "cmnd/glasslight/PowerOnState"
+      retain: true
+      payload: "{{ states('input_select.tasmota_2_power_on_set') }}"
+    
+- alias: Set Tasmota 1 Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.tasmota_1_power_on_set
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: "cmnd/tasmota1/PowerOnState"
+        retain: true
+        payload: "{{ states('input_select.tasmota_1_power_on_set') }}"
+
+

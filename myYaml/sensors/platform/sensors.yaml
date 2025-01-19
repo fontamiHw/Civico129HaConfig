@@ -1,0 +1,33 @@
+#- platform: systemmonitor
+#resources:
+#- type: disk_use_percent
+#arg: /home
+#- type: memory_free
+#- type: processor_use
+#- type: load_15m
+#- type: ipv4_address
+#arg: eth0
+#- type: last_boot
+      
+  #- platform: airvisual
+    #api_key: 569a6962-3831-42fe-9fba-c9be87553086
+    #monitored_conditions:
+      #- us
+    #show_on_map: false
+    #scan_interval: 600
+    #city: Seregno
+    #state: Lombardy
+    #country: Italy
+    
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      
+        #- platform: here_travel_time
+        #api_key: "z7a6IO1Fwh4Z8Iha5ldnno-53Gpms4bXPWtOU5K7W-U"
+        #name: Home To Work
+        #origin_entity_id: zone.home
+        #destination_entity_id: zone.work
+        #scan_interval: 900
+        #traffic_mode: true

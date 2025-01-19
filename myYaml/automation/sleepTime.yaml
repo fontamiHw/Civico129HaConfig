@@ -1,0 +1,57 @@
+- alias: "Steps Light"
+  trigger:
+     platform: sun
+     event: sunset
+  condition: []
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.save_steps_light
+
+- alias: "Save Steps Light"
+  trigger:
+     platform: sun
+     event: sunrise
+  condition: []
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.save_steps_light
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.time_to_sleep
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.taverna_walking_auto
+
+- alias: "Sleep Time"
+  trigger:
+    platform:  time
+    at: "23:59:00"
+  condition: []
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.time_to_sleep
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.taverna_walking_auto
+
+
+# At "Sleep  Time" all the light will be switched off, including those are connected to the smartSwitch
+- id: '1736076486882'
+  alias: "Sleep time triggered"
+  description: 'switch of all lights when request'
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.time_to_sleep
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: group.all_lights
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: group.smart_switches
+  mode: single

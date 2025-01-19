@@ -1,0 +1,15 @@
+- alias: Garden Light On
+  description: 'Automation to light on the garden light at the evening when television is off'
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 02:00:00
+  condition:
+    - condition: state
+      entity_id: device_tracker.hitachitv
+      state: 'not_home'
+  action:
+    service: switch.turn_on
+    entity_id: switch.garden_light
+
+

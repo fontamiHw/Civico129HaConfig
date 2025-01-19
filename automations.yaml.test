@@ -1,0 +1,932 @@
+- id: '1680360075745'
+  alias: message from taverna light ON
+  description: only for debug
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.taverna
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Luci Taverna accese
+  mode: single
+- id: '1680360118280'
+  alias: message from taverna off
+  description: only for debug
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.taverna
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Luci Taverna spente
+  mode: single
+- id: '1680342268871'
+  alias: Turn on scala 0 bottom
+  description: Automation to turn on celler steps from MD on bottom
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.scala_0_bottom_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.scala_0_light
+  mode: single
+- id: '1680342392759'
+  alias: Turn on scala 0 top
+  description: Automation to turn on celler steps from MD on top
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.scala_0_top_md
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    entity_id: switch.taverna
+  - service: light.turn_on
+    entity_id: light.scala_0_light
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Sensor top Detected
+  mode: single
+- id: '1680342460350'
+  alias: Turn off scala 0 top
+  description: Automation to turn off celler steps from MD on top
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.scala_0_top_md
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_off
+    entity_id: switch.taverna
+  - service: light.turn_off
+    entity_id: light.scala_0_light
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Sensor top Clear
+  mode: single
+- id: '1680342471382'
+  alias: Turn off scala 0 bottom
+  description: Automation to turn off celler steps from MD on bottom
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.scala_0_bottom_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.scala_0_light
+  mode: single
+- id: '1680344281367'
+  alias: messaggio Luce scale taverna accese
+  description: Solo per debug
+  trigger:
+  - platform: state
+    entity_id:
+    - light.scala_0_light
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Luci Scala accese
+  mode: single
+- id: '1680344318967'
+  alias: messaggio luce scale taverna spente
+  description: Solo per debug
+  trigger:
+  - platform: state
+    entity_id:
+    - light.scala_0_light
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: notify.telegram_mik
+    data:
+      message: 'ora: {{ now() }}'
+      title: Luci Scala spente
+  mode: single
+- alias: alarm activation
+  trigger:
+  - platform: state
+    entity_id: input_boolean.debug
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    entity_id: switch.lg_phone_webcam_motion_detection
+  - service: notify.telegram_mik
+    data:
+      title: Alarm on Civico129
+      message: Enabled
+  id: 5be9270676bb4a37aed6fd6da1f88bc6
+- alias: alarm deactivation
+  trigger:
+  - platform: state
+    entity_id: input_boolean.debug
+    to: 'off'
+  - platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_off
+    entity_id: switch.lg_phone_webcam_motion_detection
+  - service: notify.telegram_mik
+    data:
+      title: Alarm on Civico129
+      message: Disabled
+  id: 880223a5bc4749c4b8ed5ba0c8e53672
+- alias: Turn on Celler Light
+  trigger:
+    platform: state
+    entity_id: binary_sensor.celler_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.celler_light
+  id: 66e420ebfece4975ab9bfcb3b9fd8a40
+- alias: Turn off Celler Light
+  trigger:
+    platform: state
+    entity_id: binary_sensor.celler_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.celler_light
+  id: 957d8133f32c498685be7a065367810f
+- alias: Turn off Taverna Ikea light
+  trigger:
+    platform: state
+    entity_id: light.celler_light
+    to: 'on'
+    for:
+      seconds: '10'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.out_of_home
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.time_to_sleep
+      state: 'on'
+  action:
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.binary_sensor.celler_md
+      state: 'off'
+  id: f2abf282c6864b0cbfc9154ae6a12f9e
+- alias: Mik disk civico129
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.civico129_disk_usage
+    above: 80
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: Civico129 Disk problem
+      message: NAS not connected
+  id: 44c5725c8e99477289cbee1c0b98a3cf
+- alias: Kiran In
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilekiran
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: Civico129 Kiran at Home !!!!!
+      message: ' ok '
+  - service: notify.telegram_silvia
+    data:
+      title: Civico129 Kiran at Home !!!!!
+      message: ' Visto ? tutto ok'
+  id: 0ede64d01bd0432b9d2cbc12f415a605
+- alias: Kiran Out
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilekiran
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: 'Civico129 Kiran exit '
+      message: ' Mik va bene ?? '
+  - service: notify.telegram_silvia
+    data:
+      title: 'Civico129 Kiran exit '
+      message: ' Non preoccuparti Mamma '
+  id: 558afa8bd0d64e22abeed5559804bdfb
+- alias: Silvia In
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilesilvia
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: Civico129 Mamma at Home !!!!!
+      message: ' ok '
+  id: cf37c8ae65394d47b0a08f4166af3e70
+- alias: Silvia Out
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilesilvia
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: 'Civico129 Mamma Exit '
+      message: ' ok '
+  id: 000120881ed94add86210d2ddaf3ff4a
+- alias: Kai In
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilekai
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: Civico129 Kai at Home !!!!!
+      message: ' ok '
+  - service: notify.telegram_silvia
+    data:
+      title: Civico129 Kai at Home !!!!!
+      message: ' Sara'' in orario ?'
+  id: 775ac60d1a384be1a9efebeb127d3506
+- alias: Kai Out
+  trigger:
+    platform: state
+    entity_id: device_tracker.mobilekai
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: input_boolean.time_to_sleep
+    state: 'on'
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: 'Civico129 Kai exit '
+      message: ' Mik va bene ?? '
+  - service: notify.telegram_silvia
+    data:
+      title: 'Civico129 Kai exit '
+      message: ' La casa oramai e'' un albergo '
+  id: 1336f93872004cb0ab96a16f494d7a18
+- alias: Solar On
+  trigger:
+    platform: state
+    entity_id: device_tracker.solaredge
+    to: home
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: SolarEdge up & running
+      message: ' ok '
+  - service: notify.telegram_silvia
+    data:
+      title: SolarEdge up & running
+      message: ' ok'
+  id: 5114414091734549bfbf5a588f4d5ab5
+- alias: Solar Off
+  trigger:
+    platform: state
+    entity_id: device_tracker.solaredge
+    to: not_home
+  action:
+  - service: notify.telegram_mik
+    data:
+      title: SolarEdge DOWN !!!!!
+      message: ' controllare l''inverter '
+  - service: notify.telegram_silvia
+    data:
+      title: SolarEdge DOWN !!!!!
+      message: ' controllare l''inverter '
+  id: 69afb98fca784fa0acf4d7ef091e9405
+- alias: Garden Light On
+  description: Automation to light on the garden light at the evening
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 02:00:00
+  condition: []
+  action:
+    service: switch.turn_on
+    entity_id: switch.garden_light
+  id: ec4dbaea6f74482c826822b356b18989
+- alias: Turn on scala 1 top
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_top_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.scala_1_light
+  id: bdf04c3436ee4a2490a861b0242ffcbd
+- alias: Turn off scala 1 top
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_top_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.scala_1_light
+  id: fa61ab293b524e63bedcb73b07f83a8e
+- alias: Turn on scala 1 bottom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_bottom_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.scala_1_light
+  id: 60388abe093a417099de90e7f16fe6e1
+- alias: Turn off scala 1 bottom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_bottom_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.scala_1_light
+  id: 70d12d6c18364493b9e1f1022c742481
+- alias: Turn off scala 1 light Day
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+    for:
+      seconds: '1'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.out_of_home
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.save_steps_light
+      state: 'on'
+  action:
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.scala_1_bottom_md
+      state: 'off'
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.scala_1_top_md
+      state: 'off'
+  id: 7c159012b2be4028b88a0c7e096ca8d4
+- alias: Turn off scala 1 light Night
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+    for:
+      seconds: '100'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.save_steps_light
+      state: 'off'
+  action:
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.scala_1_bottom_md
+      state: 'off'
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.scala_1_top_md
+      state: 'off'
+  id: f8f264ddcc4145e5b5b185349a940fac
+- alias: Turn on scala 2 top
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_2_top_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.scala_2_light
+  id: e514dbd8fb7a4798b8ad10b5ee4166b3
+- alias: Turn off scala 2 top
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_2_top_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.scala_2_light
+  id: b0de59bc2844472994a82f050cf04569
+- alias: Turn on scala 2 bottom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_2_bottom_md
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    entity_id: light.scala_2_light
+  id: 97b40a5129114f85bebf35660e86fe91
+- alias: Turn off scala 2 bottom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_2_bottom_md
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: light.scala_2_light
+  id: 264bdba56645497982100e8a5f1215e4
+- alias: Turn off scala 2 light Day
+  trigger:
+    platform: state
+    entity_id: light.scala_2_light
+    to: 'on'
+    for:
+      seconds: '1'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.out_of_home
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.save_steps_light
+      state: 'on'
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.scala_2_light
+  id: 1f741b7b32a44ce29bc15ac905a1814d
+- alias: Turn off scala 2 light Night
+  trigger:
+    platform: state
+    entity_id: light.scala_2_light
+    to: 'on'
+    for:
+      seconds: '5'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.save_steps_light
+      state: 'off'
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.scala_2_light
+  id: 51b5dffac96a4d77bf7c62c3fa5eb014
+- alias: Scale Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.scala_0_light
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: Civico129 detection Stairs
+      message: Someone on the cellar stairs
+  id: 606164103cd94006a089b290bae9c072
+- alias: Taverna Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.celler_light
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: Civico129 detection Cellar
+      message: Someone in the cellar
+  id: cb6107b7d62e49e0a300b7cbbda91fb0
+- alias: First Floor Scale Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.scala_piano1_led
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: Civico129 detection Stairs
+      message: Someone on the First Floor Steps
+  id: 8ecebba285094fbb86f189f7a3cbc747
+- alias: Radio Off
+  trigger:
+    platform: state
+    entity_id: switch.living_room
+    to: 'off'
+    for:
+      seconds: '1'
+  action:
+  - service: media_player.media_pause
+    entity_id: media_player.living_room
+  id: 2d0a991bf27e42079fc0454e29b51bcc
+- alias: Radio On
+  trigger:
+    platform: state
+    entity_id: switch.living_room
+    to: 'on'
+    for:
+      seconds: '1'
+  condition:
+  - condition: state
+    entity_id: device_tracker.hitachitv
+    state: not_home
+  action:
+  - service: media_player.media_play
+    entity_id: media_player.living_room
+  id: ca7ef244dc594f6e802dce1786b42acf
+- alias: Televison scene
+  trigger:
+    platform: state
+    entity_id: device_tracker.hitachitv
+    to: home
+    for:
+      seconds: '7'
+  condition:
+  - condition: state
+    entity_id: switch.living_room
+    state: 'on'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.watch_tv
+  id: d0bad0e70018404daee708cba1fb8c51
+- alias: Watch TV
+  trigger:
+    platform: state
+    entity_id: input_boolean.livingroom_watch_tv
+    to: 'on'
+    for:
+      seconds: 1
+  condition: []
+  action:
+  - service: scene.turn_on
+    entity_id: scene.watch_tv
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.livingroom_watch_tv
+  id: 7feb55f5a69348f0a40d7d65d1ce4d1c
+- alias: HA Reboot
+  description: Reboot System from a button pressed
+  trigger:
+    platform: state
+    entity_id: binary_sensor.reset_ha
+    to: 'on'
+    for:
+      seconds: '5'
+  condition: []
+  action:
+  - service: hassio.host_reboot
+  id: 7a6a706c616c437c8fd4b72acadb0769
+- alias: dehumidifier on week
+  description: schedule dehumidifier activation on week
+  trigger:
+  - platform: time
+    at: 09:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.dehumidifier
+  id: cf0b1683f0824b288fc4049569ad6d02
+- alias: dehumidifier on we
+  description: schedule dehumidifier activation on we
+  trigger:
+  - platform: time
+    at: 09:00
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.dehumidifier
+  id: 0e7183789c3649088a286accf132473f
+- alias: dehumidifier off
+  description: schedule dehumidifier activation off
+  trigger:
+  - platform: time
+    at: '22:30'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.dehumidifier
+  id: 2ec5d9de3d4245e392884bb463981ee0
+- alias: Tag dehumidifier
+  description: Switch On Off the dehumidifier with the associated tag
+  trigger:
+  - platform: tag
+    tag_id: 52d6773b-81e5-4981-97ab-1e844853f50a
+  condition: []
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.dehumidifier
+  id: 93ecce66f6e54cb4880eb81645237259
+- alias: Switch Off Shower 2h
+  description: switch off the ligth on Shower after 2 hours
+  trigger:
+  - platform: state
+    entity_id: switch.doccia_taverna
+    from: 'off'
+    to: 'on'
+    for: 02:00:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.doccia_taverna
+  mode: single
+  id: 8a0f4b8511b941d5b87a33b54a471de2
+- alias: Wakeup Time
+  trigger:
+    platform: time
+    at: 06:30:00
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.time_to_sleep
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.taverna_walking_auto
+  id: 2f05f04a1ae148038c381aea176762d8
+- alias: Steps Light
+  trigger:
+    platform: sun
+    event: sunset
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.save_steps_light
+  id: c29599f5339440d2ac849839a7e7c461
+- alias: Save Steps Light
+  trigger:
+    platform: sun
+    event: sunrise
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.save_steps_light
+  id: 6795ffd869994a56ba8d3469559f4729
+- alias: Sleep Time
+  trigger:
+    platform: time
+    at: '23:59:00'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.time_to_sleep
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.taverna_walking_auto
+  id: 486c4c5e070c48f6bd5ada33fe725740
+- alias: Sleep time triggered
+  trigger:
+    platform: state
+    entity_id: input_boolean.time_to_sleep
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: group.all_lights
+  - service: switch.turn_off
+    entity_id: group.smart_switches
+  id: 804da3bf4abd4cf888235a225ea37c09
+- alias: Turn On glass light
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.scala1_glass_togheter
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.glass_light
+  id: 7ad5bdc22e834f7799d71b8b843f7f40
+- alias: Turn Off glass light
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.scala1_glass_togheter
+      state: 'on'
+    - condition: state
+      entity_id: device_tracker.hitachitv
+      state: not_home
+  action:
+  - service: switch.turn_off
+    entity_id: switch.glass_light
+  id: 570194022c6f45e38c6f215acb77eed3
+- alias: Set Taverna Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.taverna_power_on_set
+  condition: []
+  action:
+    service: mqtt.publish
+    data_template:
+      topic: cmnd/celler/PowerOnState
+      retain: true
+      payload: '{{ states(''input_select.taverna_power_on_sen'') }}'
+  id: 7e2edc4ac6414ad08dbf4182ba6e60c7
+- alias: Set Tasmota 2 Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.tasmota_2_power_on_set
+  condition: []
+  action:
+    service: mqtt.publish
+    data_template:
+      topic: cmnd/glasslight/PowerOnState
+      retain: true
+      payload: '{{ states(''input_select.tasmota_2_power_on_set'') }}'
+  id: dc6e15e8886a46dd97a017c65811e05a
+- alias: Set Tasmota 1 Power On Set
+  trigger:
+    platform: state
+    entity_id: input_select.tasmota_1_power_on_set
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: cmnd/tasmota1/PowerOnState
+      retain: true
+      payload: '{{ states(''input_select.tasmota_1_power_on_set'') }}'
+  id: e74f68a74640400db232cdfa16546bbc
+- alias: Walking out tavern with light bulb
+  trigger:
+  - platform: state
+    entity_id: light.celler_light
+    to: 'off'
+  - platform: state
+    entity_id: light.scala_0_light
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.taverna_walking_auto
+      state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.taverna
+  id: 1c3de58285a448f5b0c57afaa0a9dd52
+- alias: Tag switch Walking Taverna
+  trigger:
+    platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: 939111b7-5382-4eaa-973d-d24269d9623a
+  action:
+  - service: input_boolean.toggle
+    entity_id: input_boolean.taverna_walking_auto
+  id: 8de0929a3af447cea8c5cd4b574e9f36
+- alias: Vacation Switch off Ligth
+  description: switch off all lights at midnight.... maybe it has been switched on
+    from remote
+  trigger:
+    platform: time
+    at: 00:00:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: group.all_lights
+  id: 882cc30dbf324da38c57565817664930
+- alias: Vacation
+  trigger:
+    platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'on'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.time_to_sleep
+  - service: homeassistant.turn_off
+    entity_id: group.smart_switches
+  id: 5a43462f0ba846d28d370e7cb3bc6112
+- alias: Return Vacation
+  trigger:
+    platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'off'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.time_to_sleep
+  id: 5e1a2532b825495aa7b2baa755501ccd
+- alias: vacation garden simulation
+  description: Automation to light on the garden and entrance light at evening
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 01:00:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.garden_light_vacation
+  - service: notify.telegram_mik
+    data:
+      title: Light Simulation
+      message: Garden activated
+  id: 6be131079bf149fa9941a2a5092c935e
+- alias: vacation home simulation
+  description: Automation to light on the garden and entrance light at evening
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 02:30:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.home_light_vacation
+  - service: notify.telegram_mik
+    data:
+      title: Light Simulation
+      message: Home activated
+  id: 20600b6347f441dca6252a9c70e30254

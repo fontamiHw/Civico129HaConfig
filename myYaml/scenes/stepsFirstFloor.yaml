@@ -1,0 +1,22 @@
+# the tv scene plays with ligth and radio
+- name: Steps1FloorIn
+  entities:
+    switch.glass_light:
+      friendly_name: Tasmota 2
+      state: 'on'
+    light.scala_piano1_led:
+      brightness: 22
+      friendly_name: Scala piano1 led
+      supported_features: 33
+      state: 'on'
+
+- name: Steps1FloorOut
+  entities:
+    switch.glass_light:
+      friendly_name: Tasmota 2
+      state: 'off'
+    light.scala_piano1_led:
+      brightness: 22
+      friendly_name: Scala piano1 led
+      supported_features: 33
+      state: 'off'

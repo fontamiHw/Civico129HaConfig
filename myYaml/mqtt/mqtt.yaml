@@ -1,0 +1,278 @@
+# per configurare leggere qui
+#https://tasmota.github.io/docs/#/integrations/Home-Assistant?id=configurationyaml-editing
+
+#----------------------------------------
+#       SWITCH
+#----------------------------------------
+switch:
+  #----------------------------------------
+  # Celler
+  #----------------------------------------
+  - name: "taverna"
+    state_topic: "zigbee2mqtt/cellarSwitch"
+    availability_topic: "zigbee2mqtt/cellarSwitch/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/cellarSwitch/set"
+
+  - name: "doccia taverna"
+    state_topic: "zigbee2mqtt/shower0switch"
+    availability_topic: "zigbee2mqtt/shower0switch/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/shower0switch/set"
+    payload_off: "OFF"
+    payload_on: "ON"
+
+  #----------------------------------------
+  # Ground floor
+  #----------------------------------------
+  - name: "glass light"
+    state_topic: "stat/glasslight/RESULT"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/glasslight/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/glasslight/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+
+  #----------------------------------------
+  #       SENSOR
+  #----------------------------------------
+  #sensor:
+
+  #----------------------------------------
+  #       LIGHT
+  #----------------------------------------
+light:
+  #----------------------------------------
+  #  Ikea
+  #----------------------------------------
+
+  - name: "scala_0_light"
+    state_topic: "zigbee2mqtt/scala0light"
+    availability_topic: "zigbee2mqtt/scala0light/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala0light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list:
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  - name: "celler_light"
+    state_topic: "zigbee2mqtt/cellerLight"
+    availability_topic: "zigbee2mqtt/cellerLight/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/cellerLight/set"
+    brightness_scale: 254
+    effect: true
+    effect_list:
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  - name: "scala 1 light"
+    availability_topic: "zigbee2mqtt/scala1light/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala1light"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala1light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list:
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  - name: "scala 2 light"
+    availability_topic: "zigbee2mqtt/scala2light/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala2light"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala2light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list:
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  #----------------------------------------
+  #       BINARY SENSOR
+  #----------------------------------------
+binary_sensor:
+  #----------------------------------------
+  # Celler
+  #----------------------------------------
+  - name: "cellar door sensor"
+    availability_topic: "zigbee2mqtt/cellarDoorSensor/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    state_topic: "zigbee2mqtt/cellarDoorSensor"
+    value_template: "{{ value_json.contact }}"
+    payload_on: false
+    payload_off: true
+
+  - name: "shower md"
+    state_topic: "zigbee2mqtt/showerMd"
+    availability_topic: "zigbee2mqtt/showerMd/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "celler md"
+    availability_topic: "zigbee2mqtt/cellerMd/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/cellerMd"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 0 bottom md"
+    availability_topic: "zigbee2mqtt/scala0Bottom/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala0Bottom"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 0 top md"
+    availability_topic: "zigbee2mqtt/scala0Top/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala0Top"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "Humidity Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.humidity }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Temp Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.temperature }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Battery Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.battery }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Link Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.linkquality }}"
+    icon: "mdi:temperature-celsius"
+
+  #----------------------------------------
+  # Ground Floor
+  #----------------------------------------
+  - name: "main door sensor"
+    availability_topic: "zigbee2mqtt/mainDoorSensor/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/mainDoorSensor"
+    value_template: "{{ value_json.contact }}"
+    payload_on: false
+    payload_off: true
+
+  - name: "scala 1 top md"
+    availability_topic: "zigbee2mqtt/scala1top/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala1top"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 1 bottom md"
+    availability_topic: "zigbee2mqtt/scala1bottom/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala1bottom"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  #----------------------------------------
+  # First Floor
+  #----------------------------------------
+  - name: "scala 2 top md"
+    availability_topic: "zigbee2mqtt/scala2Top/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala2Top"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 2 bottom md"
+    availability_topic: "zigbee2mqtt/scala2Bottom/availability"
+    availability_template: "{{ value_json.state }}"
+    payload_available: "online"
+    payload_not_available: "offline"
+    state_topic: "zigbee2mqtt/scala2Bottom"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"

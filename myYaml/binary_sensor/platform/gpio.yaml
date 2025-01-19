@@ -1,0 +1,16 @@
+#- platform: rpi_gpio
+#ports:
+#5: ha reset
+#bouncetime: 50  # just to be sure I added a hardware low-pass filter as well
+#pull_mode: "DOWN"
+#
+#
+#
+# Full configuration.yaml entry
+  - platform: rpi_gpio
+    sensors:
+      - port: 5
+        name: "reset ha"
+        unique_id: "reset_ha"
+        bouncetime: 50
+        pull_mode: "DOWN"

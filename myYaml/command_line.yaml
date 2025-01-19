@@ -1,0 +1,3 @@
+- sensor:
+    command: "ls /share/amule/completed/  | wc -l"
+    name: "movies ready"

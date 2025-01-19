@@ -1,0 +1,63 @@
+- id: "1714572349016"
+  alias: mainDoorOpen
+  description: When sensor detect the open of the main door
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.main_door_sensor
+      from: "off"
+      to: "on"
+  conditions:
+    - condition: time
+      after: "07:00:00"
+      before: "20:00:00"
+      weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+  actions:
+    - action: notify.telegram_family
+      metadata: {}
+      data:
+        message: Main door
+        title: "Open Door"
+  mode: single
+
+- id: "1714572349017"
+  alias: testCellarDoorOpen
+  description: When sensor detect the open of the cellar door
+  triggers:
+    - trigger: state
+      entity_id:
+        - binary_sensor.cellar_door_sensor
+      from: "off"
+      to: "on"
+  conditions: []
+  actions:
+    - service: notify.telegram_family
+      metadata: {}
+      data:
+        message: Cellar door
+        title: "Open Door"
+  mode: single
+
+- id: "1717841772251"
+  alias: cellarDoorLightOn
+  description: Cellar Light on when door is open
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.cellar_door_sensor
+      from: "off"
+      to: "on"
+      alias: Cellar light on on opend cellar door
+  condition: []
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.celler_light
+  mode: single

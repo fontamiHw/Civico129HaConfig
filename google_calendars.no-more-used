@@ -1,0 +1,23 @@
+- cal_id: famsmkk@gmail.com
+  entities:
+  - device_id: famsmkk_gmail_com
+    ignore_availability: true
+    name: famsmkk@gmail.com
+    track: true
+    max_results: 15
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: true
+    max_results: 15
+
+- cal_id: en.italian#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_italy
+    ignore_availability: true
+    name: Holidays in Italy
+    track: true
+    max_results: 15

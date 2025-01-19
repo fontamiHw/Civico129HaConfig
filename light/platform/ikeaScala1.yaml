@@ -1,0 +1,20 @@
+  - platform: "mqtt"
+    name: "scala 1 light"
+    state_topic: "zigbee2mqtt/scala1light"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    color_temp: false
+    xy: false
+    hs: false
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala1light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list: 
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+

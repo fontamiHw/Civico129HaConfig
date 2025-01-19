@@ -1,0 +1,126 @@
+#------ detection with Tracker 
+#- id: '1704387752904'
+  #alias: out con family group
+  #description: ''
+  #trigger:
+  #- platform: state
+    #entity_id:
+    #- group.family_tracker
+    #to: 'off'
+    #for:
+      #hours: 0
+      #minutes: 0
+      #seconds: 0
+  #condition: []
+  #action:
+  #- service: scene.turn_on
+    #target:
+      #entity_id: scene.camouthome
+    #metadata: {}
+  #mode: single
+#- id: '1704388263253'
+  #alias: in con family group
+  #description: ''
+  #trigger:
+  #- platform: state
+    #entity_id:
+    #- group.family_tracker
+    #to: 'on'
+    #for:
+      #hours: 0
+      #minutes: 0
+      #seconds: 0
+  #condition: []
+  #action:
+  #- service: scene.turn_on
+    #target:
+      #entity_id: scene.caminhome
+    #metadata: {}
+  #mode: single
+
+#Activation with switch
+- id: '1704475465240'
+  alias: alarm activation
+  description: Created new
+  trigger:
+  - platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'on'
+  condition: []
+  action:
+  - service: scene.turn_on
+    entity_id: scene.doorouthome
+  - service: scene.turn_on
+    entity_id: scene.camouthome
+  - service: scene.turn_on
+    entity_id: scene.home_light_vacation
+  - service: notify.telegram_family
+    data:
+      title: Alarm on Civico129
+      message: Enabled
+
+- alias: alarm deactivation
+  trigger:
+  - platform: state
+    entity_id: input_boolean.out_of_home
+    to: 'off'
+  condition: []
+  action:
+  - service: scene.turn_on
+    entity_id: scene.doorinhome
+  - service: scene.turn_on
+    entity_id: scene.caminhome
+  - service: notify.telegram_family
+    data:
+      title: Alarm on Civico129
+      message: Disabled
+  id: 5a582a34f9f24de485044d0bd022877a
+
+
+#------- Intrusion
+- alias: Scale Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.scala_0_light
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.telegram_family
+    data:
+      title: Civico129 detection Stairs
+      message: Someone on the cellar stairs
+  id: 920632d7255e45f09c832949b7ce1b92
+
+- alias: Taverna Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.celler_light
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.telegram_family
+    data:
+      title: Civico129 detection Cellar
+      message: Someone in the cellar
+  id: 872abd20863343f4a98d486aa0ab5058
+- alias: First Floor Scale Intrusion detection
+  trigger:
+    platform: state
+    entity_id: light.scala_piano1_led
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.out_of_home
+    state: 'on'
+  action:
+  - service: notify.famiglia
+    data:
+      title: Civico129 detection Stairs
+      message: Someone on the First Floor Steps
+  id: 3597264a7d3e4e40b70794f32ae9bc6c

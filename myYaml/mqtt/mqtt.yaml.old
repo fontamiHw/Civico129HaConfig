@@ -1,0 +1,347 @@
+
+# per configurare leggere qui
+#https://tasmota.github.io/docs/#/integrations/Home-Assistant?id=configurationyaml-editing
+
+  #----------------------------------------
+  #       SWITCH
+  #----------------------------------------
+  #----------------------------------------
+  #shelly.yaml
+  #----------------------------------------
+switch:
+  #- name: "Entrance"
+  #state_topic: "living-room/events/switch:1"
+  #value_template: "{{ value_json.output }}"
+  #command_topic: "living-room/command/switch:1"
+  #payload_on: "on"
+  #payload_off: "off"
+  #retain: false
+  #
+  #- name: "Living Room"
+  #state_topic: "living-room/relay/0"
+  #command_topic: "living-room/command/switch:0"
+  #payload_on: "on"
+  #payload_off: "off"
+  #retain: false
+  #
+  #- name: "Entrance"
+  #state_topic: "living-room/relay/1"
+  #command_topic: "living-room/command/switch:1"
+  #payload_on: "on"
+  #payload_off: "off"
+  #retain: false
+  #
+  #- name: "Living Room"
+  #state_topic: "living-room/relay/0"
+  #command_topic: "living-room/command/switch:0"
+  #payload_on: "on"
+  #payload_off: "off"
+  #retain: false
+
+  #----------------------------------------
+  # Tasmota.yaml
+  #----------------------------------------
+  - name: "taverna"
+    state_topic: "zigbee2mqtt/cellarSwitch"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/cellarSwitch/set"
+
+      #- name: "camera_portico"
+      #state_topic: "zigbee2mqtt/cameraPorch"
+      #availability_topic: "zigbee2mqtt/bridge/state"
+      #payload_off: "OFF"
+      #payload_on: "ON"
+      #value_template: "{{ value_json.state }}"
+      #command_topic: "zigbee2mqtt/cameraPorch/set"
+
+  - name: "doccia_taverna"
+    state_topic: "zigbee2mqtt/showerSwitch"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/showerSwitch/set"
+
+  - name: "garden light"
+    state_topic: "stat/gardenlight/RESULT"  
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/gardenlight/POWER1"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/gardenlight/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+    
+  - name: "dehumidifier"
+    state_topic: "stat/dehumidifier/RESULT"  
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/dehumidifier/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/dehumidifier/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+    
+  - name: "glass light"
+    state_topic: "stat/glasslight/RESULT"  
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/glasslight/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/glasslight/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+    
+
+  #----------------------------------------
+  #       SENSOR
+  #----------------------------------------
+  #----------------------------------------
+  #shelly.yaml
+  #----------------------------------------
+sensor:
+  #- name: "Entrance P"
+  #state_topic: "living-room/relay/0/power"
+  #unit_of_measurement: "W"
+  #icon: mdi:gauge
+  #
+  #- name: "Living Room P"
+  #state_topic: "living-room/relay/1/power"
+  #unit_of_measurement: "W"
+  #icon: mdi:gauge
+  #
+  #- name: "Entrance  E"
+  #state_topic: "living-room/relay/0/energy"
+  #unit_of_measurement: "W/m"
+  #icon: mdi:gauge
+  #
+  #- name: "Living Room E"
+  #state_topic: "living-room/relay/1/energy"
+  #unit_of_measurement: "W/m"
+  #icon: mdi:gauge
+  #
+  #- name: "Living Room temperature"
+  #state_topic: "living-room/temperature"
+  #unit_of_measurement: "C"
+  #icon: mdi:coolant-temperature
+  #
+  #- name: "Living Room overtemperature"
+  #state_topic: "living-room/overtemperature"
+  #unit_of_measurement: "C"
+  #icon: mdi:alarm-light
+
+  #----------------------------------------
+  # SONOFF Temperature Humidity
+  #----------------------------------------
+  - name: "Humidity Roof"
+    state_topic: "zigbee2mqtt/roofTemp"
+    value_template: "{{ value_json.humidity }}"
+    unit_of_measurement: "%"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Battery Roof"
+    state_topic: "zigbee2mqtt/roofTemp"
+    value_template: "{{ value_json.battery }}"
+    unit_of_measurement: "%"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Link Roof"
+    state_topic: "zigbee2mqtt/roofTemp"
+    value_template: "{{ value_json.linkquality }}"
+    unit_of_measurement: "lqi"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Temp Roof"
+    state_topic: "zigbee2mqtt/roofTemp"
+    value_template: "{{ value_json.temperature }}"
+    unit_of_measurement: "C"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Humidity Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.humidity }}"
+    unit_of_measurement: "%"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Temp Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.temperature }}"
+    unit_of_measurement: "C"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Battery Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.battery }}"
+    unit_of_measurement: "%"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Link Celler Ambient"
+    state_topic: "zigbee2mqtt/cellerAmbient"
+    value_template: "{{ value_json.linkquality }}"
+    unit_of_measurement: "lqi"
+    icon: "mdi:temperature-celsius"
+
+  #----------------------------------------
+  #       LIGHT
+  #----------------------------------------
+  #----------------------------------------
+  #  Ikea scala 0, 1, 2
+  #----------------------------------------
+light:
+  #- name: "scala0light"
+  #state_topic: "zigbee2mqtt/scala0light"
+  #availability_topic: "zigbee2mqtt/bridge/state"
+  #brightness: true
+  #supported_color_modes: ["hs"]
+  #schema: "json"
+  #command_topic: "zigbee2mqtt/scala0light/set"
+  #brightness_scale: 254
+  #effect: true
+  #effect_list: 
+  #- "blink"
+  #- "breathe"
+  #- "okay"
+  #- "channel_change"
+  #- "finish_effect"
+  #- "stop_effect"
+
+  - name: "scala 1 light"
+    state_topic: "zigbee2mqtt/scala1light"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala1light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list: 
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  - name: "scala 2 light"
+    state_topic: "zigbee2mqtt/scala2light"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/scala2light/set"
+    brightness_scale: 254
+    effect: true
+    effect_list: 
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+  #----------------------------------------
+  #  Ikea Celler
+  #----------------------------------------
+
+  - name: "celler light"
+    state_topic: "zigbee2mqtt/cellerLight"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    supported_color_modes: ["hs"]
+    schema: "json"
+    command_topic: "zigbee2mqtt/cellerLight/set"
+    brightness_scale: 254
+    effect: true
+    effect_list: 
+      - "blink"
+      - "breathe"
+      - "okay"
+      - "channel_change"
+      - "finish_effect"
+      - "stop_effect"
+
+  #----------------------------------------
+  #       BINARY SENSOR
+  #----------------------------------------
+binary_sensor:
+  - name: "celler md"
+    state_topic: "zigbee2mqtt/cellerMd"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 0 top md"
+    state_topic: "zigbee2mqtt/scala0Top"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 0 bottom md"
+    state_topic: "zigbee2mqtt/scala0Bottom"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 1 top md"
+    state_topic: "zigbee2mqtt/scala1top"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "shower md"
+    state_topic: "zigbee2mqtt/showerMd"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 1 bottom md"
+    state_topic: "zigbee2mqtt/scala1bottom"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 2 top md"
+    state_topic: "zigbee2mqtt/scala2Top"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "scala 2 bottom md"
+    state_topic: "zigbee2mqtt/scala2Bottom"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    value_template: "{{ value_json.occupancy }}"
+    payload_on: true
+    payload_off: false
+    device_class: "motion"
+
+  - name: "cellar door sensor"
+    state_topic: "zigbee2mqtt/cellarDoorSensor"
+    value_template: "{{ value_json.contact }}"
+    payload_on: false
+    payload_off: true
+
+  - name: "main door sensor"
+    state_topic: "zigbee2mqtt/mainDoorSensor"
+    value_template: "{{ value_json.contact }}"
+    payload_on: false
+    payload_off: true
+

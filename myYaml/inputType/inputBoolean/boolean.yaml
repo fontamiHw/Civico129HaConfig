@@ -1,0 +1,37 @@
+  save_steps_light:
+    name: Save Steps Light
+    initial: off
+  time_to_sleep:
+    name: Time to Sleep
+    initial: off
+  out_of_home:
+    name: Out of Home
+  scala1_glass_togheter:
+    name: scala1_glass_togheter
+    initial: on
+  taverna_walking_auto:
+    name: Walking Taverna 
+    initial: on
+  livingroom_watch_tv:
+    name: livingRoom Watch TV
+    initial: off
+  ikea_dimmer_sala:
+    name: ikea dimmer sala
+    initial: on
+  activate_telegram_action:
+    name: activate telegram action
+  debug:
+    name: Debug Development Input
+    initial: off
+  motion_detection:
+    name: MotionEye Detection Alarm
+    initial: off
+  test_button:
+    name: test_button
+    initial: off
+  activate_external_cam:
+    name: Activate External Cam
+    initial: off
+  reset_ha:
+    name: reset_ha
+    initial: off

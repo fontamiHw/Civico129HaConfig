@@ -1,0 +1,25 @@
+# configuration.yaml entry for the notifier of Civico129
+- name: Telegram Mik
+  platform: telegram
+  chat_id: 150348817
+
+- name: Telegram Silvia
+  platform: telegram
+  chat_id: 199033211
+
+#chat_id del bot famsmkk
+- name: Telegram Family
+  platform: telegram
+  chat_id: -4175004467
+
+- name: famiglia
+  platform: group
+  services:
+      - service: telegram_mik
+      - service: telegram_silvia
+
+#- name: webex Civico129
+# platform: cisco_webex_teams
+# token: ZjQ4MGI5YmQtOWI4My00YjI5LTgwZDYtNmJkMzM5YWZkMTMzNzliYjY3NjYtYjQx_PF84_1eb65fdf-9643-417f-9974-ad72cae0e10f
+# room_id: b1d3f030-7c41-11ef-aa0b-fd3280ef46fd
+

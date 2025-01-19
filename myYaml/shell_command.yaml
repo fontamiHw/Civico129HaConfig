@@ -1,0 +1,4 @@
+restart_pow: 'touch /config/restart.txt'
+motioneye_camera1_status: 'wget -q -O - "http://192.168.1.2:7999/1/detection/status" > /config/rimuovi.txt'
+motioneye_camera1_pause: 'wget -q -O - "http://192.168.1.2:7999/1/detection/pause"'
+motioneye_camera1_start: 'wget -q -O - "http://192.168.1.2:7999/1/detection/start"'

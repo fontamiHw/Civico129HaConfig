@@ -1,0 +1,16 @@
+  - platform: mqtt
+    name: "zigbee_md"
+    state_topic: "zigbee2mqtt/zigbeeMD"
+    value_template: "{{ value_json.occupancy }}"
+
+  - platform: mqtt
+    name: "zigbee_md_battery"
+    state_topic: "zigbee2mqtt/zigbeeMD"
+    value_template: "{{ value_json.battery }}"
+    unit_of_measurement: "%"
+
+  - platform: mqtt
+    name: "zigbee_md_link"
+    state_topic: "zigbee2mqtt/zigbeeMD"
+    value_template: "{{ value_json.linkquality }}"
+    unit_of_measurement: "lqi"

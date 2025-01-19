@@ -1,0 +1,15 @@
+# configuration.yaml entry for the bot civico129
+#  api_key: 844012565:AAGeHi7GGm4M9vQ-hP3oHGuQ4rOhLnDO7HE Civico129
+#chat_id: 844012565
+
+- platform: polling
+# -4120923708 e' del gruppo Civico129HA
+  api_key: !secret telegram_bot_key
+  allowed_chat_ids:
+      - -4175004467
+      - 844012565
+      - 150348817
+      - 199033211
+
+
+

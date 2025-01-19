@@ -1,0 +1,22 @@
+- alias: "Turn On glass light"
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.scala1_glass_togheter
+      state: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.glass_light
+
+- alias: "Turn Off glass light"
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'off'
+  condition: []
+  action:
+    - service: switch.turn_off
+      entity_id: switch.glass_light

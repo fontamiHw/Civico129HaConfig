@@ -1,0 +1,11 @@
+- id: '1704449882806'
+  name: CamOutHome
+  entities:
+    #input_boolean.activate_external_cam: true
+    group.external_cameras: true
+- id: 9195441046c64b5d89b28540a61ba3be
+  name: CamInHome
+  entities:
+    #input_boolean.activate_external_cam: off
+    group.external_cameras: false
+  

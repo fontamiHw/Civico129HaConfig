@@ -1,0 +1,2 @@
+installazione S2.5= https://hassiohelp.eu/2019/05/24/shelly25/
+installazione SMeter = https://community.home-assistant.io/t/configuring-shelly-em-energy-meter/128581

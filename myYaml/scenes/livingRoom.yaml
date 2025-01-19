@@ -1,0 +1,15 @@
+# the tv scene plays with ligth and radio
+- name: watch tv
+  id: 86951e9612ca48389e6a2a269e9a4a82
+  entities:
+          switch.living_room_shellyplus2pm_5443b23ae424_1: off
+          switch.glass_light: off
+          switch.living_room_shellyplus2pm_5443b23ae424_2: on
+          media_player.living_room : media_pause
+          input_boolean.scala1_glass_togheter : off
+
+- name: off tv
+  entities:
+          switch.glass_light: on
+          input_boolean.scala1_glass_togheter : on
+

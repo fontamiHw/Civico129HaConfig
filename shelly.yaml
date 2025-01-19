@@ -1,0 +1,8 @@
+  discovery: false
+  version: true #add version sensor
+  sensors:
+    - all
+  devices:      #devices to be added
+    - id: "C4D0CE-2"
+    - id: "C4D0CE-1"   #Shelly 2, Id + Channel number
+      name: "Shelly Living Room"   #set friendly name

@@ -1,0 +1,33 @@
+- platform: template
+  sensors:
+    corolla_ev_week:
+      friendly_name: "Corolla EV Percentage week"
+      value_template: "{{ state_attr('sensor.corolla_current_week_statistics', 'EV_distance_percentage') }}"
+      unit_of_measurement: '%'
+    corolla_ev_month:
+      friendly_name: "Corolla EV Percentage month"
+      value_template: "{{ state_attr('sensor.corolla_current_month_statistics', 'EV_distance_percentage') }}"
+      unit_of_measurement: '%'
+    corolla_ev_year:
+      friendly_name: "Corolla EV Percentage year"
+      value_template: "{{ state_attr('sensor.corolla_current_year_statistics', 'EV_distance_percentage') }}"
+      unit_of_measurement: '%'
+    corolla_ev_distance_week:
+      friendly_name: "Corolla EV Distance week"
+      value_template: "{{ state_attr('sensor.corolla_current_week_statistics', 'EV_distance') }}"
+      unit_of_measurement: 'Km'
+    corolla_ev_distance_month:
+      friendly_name: "Corolla EV Distance month"
+      value_template: "{{ state_attr('sensor.corolla_current_month_statistics', 'EV_distance') }}"
+      unit_of_measurement: 'Km'
+    corolla_ev_distance_year:
+      friendly_name: "Corolla EV Distance year"
+      value_template: "{{ state_attr('sensor.corolla_current_year_statistics', 'EV_distance') }}"
+      unit_of_measurement: 'Km'
+
+
+    living_room_total:
+      friendly_name: "Sensor Entrance- Total"
+      value_template: "{{ states('sensor.living_room_shellyplus2pm_5443b23ae424_1_current_consumption') | float + states('sensor.living_room_shellyplus2pm_5443b23ae424_2_current_consumption') | float }}"
+      unit_of_measurement: 'watts'
+    

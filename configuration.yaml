@@ -1,0 +1,96 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+python_script:
+  allow_all_imports: true
+
+logger:
+  default: info
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+mqtt: !include myYaml/mqtt/mqtt.yaml
+binary_sensor: !include_dir_merge_list myYaml/binary_sensor/platform/
+sensor: !include_dir_merge_list myYaml/sensors/platform/
+group: !include_dir_merge_named myYaml/group/
+input_select: !include_dir_merge_named myYaml/inputType/inputSelect/
+input_boolean: !include_dir_merge_named myYaml/inputType/inputBoolean/
+
+#Scenes stuff
+scene: !include_dir_merge_list myYaml/scenes/
+#scene: !include scenes.yaml
+
+# Automation stuff
+automation yaml: !include_dir_merge_list myYaml/automation/
+#automation: !include automations.yaml
+
+trace:
+  stored_traces: 5
+
+frontend:
+  themes: !include_dir_merge_named themes/
+
+#google:
+#client_id: 1087080177977-lfo4kpjilehn9j8b40p4n9515p5fjulu.apps.googleusercontent.com
+#client_secret: DLoq5Fv-pjyoAv-jCIMgqwFH
+
+telegram_bot: !include myYaml/telegram/telegram.yaml
+notify: !include myYaml/telegram/telegramNotify.yaml
+
+zone: !include myYaml/zone.yaml
+
+owntracks: !include myYaml/owntracks.yaml
+device_tracker: !include myYaml/deviceTracker.yaml
+
+history:
+recorder:
+  # write on disk every 10 minute
+  commit_interval: 600
+  include:
+    domains:
+      - light
+      - switch
+      - device_tracker
+      - sensor
+      - binary_sensor
+      - group
+
+ffmpeg:
+shell_command: !include myYaml/shell_command.yaml
+command_line: !include myYaml/command_line.yaml
+
+my:
+
+# configuration for the restApi
+api:
+
+# add the whitelist
+homeassistant:
+  allowlist_external_dirs:
+    - "/tmp"
+
+#influxdb: !include myYaml/influxdb.yaml
+
+# Enable mobile_app
+mobile_app:
+
+http:
+  #ssl_certificate: /config/ssl/fullchain.pem
+  #ssl_key: /config/ssl/privkey.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+# Custom Panel
+# panel_custom:
+#   - name: Supervisor
+#     url_path: hassio/system
+#     sidebar_title: Supervisor
+#     sidebar_icon: mdi:home-assistant
+#     module_url: /local/panel.redirect.js
+

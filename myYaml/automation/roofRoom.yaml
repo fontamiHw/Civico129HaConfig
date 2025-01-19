@@ -1,0 +1,57 @@
+# handle dehumidifier
+- alias: dehumidifier on week
+  description: schedule dehumidifier activation on week
+  trigger:
+  - platform: time
+    at: '09:00'
+  condition: 
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.dehumidifier
+
+- alias: dehumidifier on we
+  description: schedule dehumidifier activation on we
+  trigger:
+  - platform: time
+    at: '09:00'
+  condition: 
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.dehumidifier
+
+- alias: dehumidifier off
+  description: schedule dehumidifier activation off
+  trigger:
+  - platform: time
+    at: '22:30'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.dehumidifier
+
+- alias: "Tag dehumidifier"
+  description: 'Switch On Off the dehumidifier with the associated tag'
+  trigger:
+  - platform: tag
+    tag_id: 52d6773b-81e5-4981-97ab-1e844853f50a
+  condition: []
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.dehumidifier
+
+

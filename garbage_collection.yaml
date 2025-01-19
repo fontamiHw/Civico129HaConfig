@@ -1,0 +1,27 @@
+ sensors:
+  - name: raccolta_indifferenziato
+    frequency: "weekly"
+    collection_days:
+    - fri
+    move_country_holidays: IT
+  - name: raccolta_organico
+    frequency: "weekly"
+    collection_days:
+    - tue
+    - fri
+    move_country_holidays: IT
+  - name: raccolta_carta
+    frequency: "weekly"
+    collection_days:
+    - fri
+    move_country_holidays: IT
+  - name: raccolta_plastica
+    frequency: "weekly"
+    collection_days:
+    - tue
+    move_country_holidays: IT
+  - name: raccolta_vetro
+    frequency: "weekly"
+    collection_days:
+    - tue
+    move_country_holidays: IT

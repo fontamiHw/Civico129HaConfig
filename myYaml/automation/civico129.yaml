@@ -1,0 +1,13 @@
+- alias: "Mik disk civico129"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.civico129_disk_usage
+    above: 80
+  condition: []
+  action:
+    - service: notify.telegram_mik
+      data:
+        title: "Civico129 Disk problem"
+        message: "NAS not connected"
+      
+

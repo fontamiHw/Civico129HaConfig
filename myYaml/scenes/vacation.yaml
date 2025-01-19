@@ -1,0 +1,19 @@
+- name: Garden light vacation
+  entities:
+    switch.living_room_shellyplus2pm_5443b23ae424_2:
+      state: on
+    switch.garden_light:
+      state: on
+    switch.living_room_shellyplus2pm_5443b23ae424_1:
+      state: off
+
+- name: home light vacation
+  entities:
+    switch.living_room_shellyplus2pm_5443b23ae424_2:
+      state: on
+    switch.living_room_shellyplus2pm_5443b23ae424_1:
+      state: off
+    switch.garden_light:
+      state: off
+    group.all_lights:
+      state: off

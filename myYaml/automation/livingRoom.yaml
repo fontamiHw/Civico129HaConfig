@@ -1,0 +1,70 @@
+#Activate Radion on off following the living room ligth status
+- alias: "Radio Off"
+  trigger:
+    platform: state
+    entity_id: switch.living_room_shellyplus2pm_5443b23ae424_1
+    to: 'off'
+    for:
+      seconds: "1" 
+  action:
+    - service: media_player.media_pause
+      entity_id: media_player.living_room
+
+- alias: "Radio On"
+  trigger:
+    platform: state
+    entity_id: switch.living_room_shellyplus2pm_5443b23ae424_1
+    to: 'on'
+    for:
+      seconds: "1" 
+# switch on radio only if the TV is not already on
+  condition:
+    - condition: state
+      entity_id: device_tracker.hitachitv
+      state: 'not_home'
+  action:
+    - service: media_player.media_play
+      entity_id: media_player.living_room
+
+#activate the Tv scenes when is detected the Tv WiFi
+- alias: "Televison scene"
+  trigger:
+    platform: state
+    entity_id: device_tracker.hitachitv
+    to: 'home'
+    for:
+      seconds: "7" 
+  condition:
+    - condition: state
+      entity_id: switch.living_room_shellyplus2pm_5443b23ae424_1
+      state: 'on'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.watch_tv
+    
+- alias: "Televison scene off"
+  trigger:
+    platform: state
+    entity_id: device_tracker.hitachitv
+    to: 'not_home'
+    for:
+      seconds: "7" 
+  condition: []
+  action:
+    - service: scene.turn_on
+      entity_id: scene.off_tv
+    
+# Quando sente il comando del livingroom su on attiva la scena e lo riporta subito off
+- alias: "Watch TV"
+  trigger:
+    platform: state
+    entity_id: input_boolean.livingroom_watch_tv
+    to: 'on'
+    for:
+      seconds: 1
+  condition: []
+  action:
+    - service: scene.turn_on
+      entity_id: scene.watch_tv
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.livingroom_watch_tv

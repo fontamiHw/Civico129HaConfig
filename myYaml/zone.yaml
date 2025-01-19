@@ -1,0 +1,10 @@
+ # This will override the default home zone
+#  - name: Home
+#    latitude: "45.6624897"
+#    longitude: "9.1897607"
+#    icon: mdi:home
+
+  - name: Work
+    latitude: "45.6011875"
+    longitude: "9.3675332"
+    icon: mdi:worker

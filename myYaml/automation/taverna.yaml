@@ -1,0 +1,57 @@
+# Automation to the passage in tavern only if the input taverna_walking_auto is active 
+#   Ligth is switch on when seller or stair are on
+#   Ligth is switch off when seller or stair are off
+- alias: "Walking out light tavern"
+  trigger:
+    # when light of scala AND taverna are off switch off the taverna,too
+  - platform: state
+    entity_id:
+    - light.celler_light
+    to: 'off'
+  - platform: state
+    entity_id:
+    - light.scala_0_light
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.taverna_walking_auto
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.celler_light
+      state: 'off'
+    - condition: state
+      entity_id: light.scala_0_light
+      state: 'off'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.taverna
+
+- alias: "Walking in light taverna "
+  trigger:
+    # when light of scala or taverna is on switch on the taverna,too
+    - platform: state
+      entity_id: light.celler_light
+      to: 'on'
+    - platform: state
+      entity_id: light.scala_0_light
+      to: 'on'
+  condition: 
+    - condition: state
+      entity_id: input_boolean.taverna_walking_auto
+      state: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.taverna
+
+- alias: "Tag switch Walking Taverna"
+  trigger:
+    platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: 939111b7-5382-4eaa-973d-d24269d9623a
+  action:
+    - service: input_boolean.toggle
+      entity_id: input_boolean.taverna_walking_auto
+

@@ -1,0 +1,14 @@
+diversi siti interessanti:
+
+Flsh tasmota da DIY = https://github.com/arendst/Tasmota/wiki/Sonoff-DIY
+Template di configurazione = https://templates.blakadder.com/sonoff_mini.html
+GIPO scheda = https://github.com/arendst/Tasmota/wiki/Sonoff-Mini
+Schematici collegamento = https://lamiacasaelettrica.com/sonoff-mini/
+
+reflash with Tasmotizer = http://acoptex.com/wp/basics-project-109e/
+flsh repo = https://github.com/arendst/Tasmota/releases
+
+
+
+template:
+{"NAME":"Sonoff Mini","GPIO":[17,0,0,0,9,0,0,0,21,56,0,0,255],"FLAG":0,"BASE":1}

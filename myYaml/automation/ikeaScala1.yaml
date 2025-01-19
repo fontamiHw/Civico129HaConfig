@@ -1,0 +1,84 @@
+- alias: "Turn on scala 1 top"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_top_md
+    to: 'on'
+  condition: []
+  action:
+    - service: light.turn_on
+      entity_id: light.scala_1_light
+
+- alias: "Turn off scala 1 top"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_top_md
+    to: 'off'
+  condition: []
+  action:
+    - service: light.turn_off
+      entity_id: light.scala_1_light
+
+- alias: "Turn on scala 1 bottom"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_bottom_md
+    to: 'on'
+  condition: []
+  action:
+    - service: light.turn_on
+      entity_id: light.scala_1_light
+
+- alias: "Turn off scala 1 bottom"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.scala_1_bottom_md
+    to: 'off'
+  condition: []
+  action:
+    - service: light.turn_off
+      entity_id: light.scala_1_light
+    
+
+# When nobody at home or is day light... do not keep light on too long it is useless
+- alias: "Turn off scala 1 light Day"
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+    for:
+      seconds: "1" 
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.out_of_home
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.save_steps_light
+        state: 'on'
+  action:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.scala_1_light
+    
+# at night time keep light longer 
+- alias: "Turn off scala 1 light Night"
+  trigger:
+    platform: state
+    entity_id: light.scala_1_light
+    to: 'on'
+    for:
+      seconds: "100" 
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.save_steps_light
+        state: 'off'
+  action:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.scala_1_light
+

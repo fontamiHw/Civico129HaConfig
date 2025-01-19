@@ -1,0 +1,37 @@
+- id: ca37f02be41c40b69f1fb018243e27ad
+  alias: test_off
+  description: test off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.test_button
+      to: "off"
+  condition: []
+  action:
+    - service: notify.telegram_mik
+      data:
+        title: TEST
+        message: "off"
+
+- id: "1704034232723"
+  alias: test_on
+  description: test on
+  trigger:
+    - platform: state
+      entity_id:
+        - input_boolean.test_button
+      to: "on"
+  condition: []
+  action:
+    - service: telegram_bot.send_message
+      metadata: {}
+      data:
+        message: prova tasti
+        target: 150348817
+        inline_keyboard:
+          - prova luci:/light
+          - prova switch:/switch
+        one_time_keyboard: true
+    - service: notify.telegram_mik
+      data:
+        title: TEST
+        message: "on"

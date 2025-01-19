@@ -1,0 +1,35 @@
+# Dimmer Studio
+
+# removed because use the AppDaemon script
+#- platform: mqtt
+#name: "studio dimmer action"
+#state_topic: "zigbee2mqtt/studioDimmer"
+#availability_topic: "zigbee2mqtt/bridge/state"
+#value_template: "{{ value_json.action }}"
+#icon: "mdi:gesture-double-tap"
+
+  - platform: mqtt
+    name: "studio dimmer battery"
+    state_topic: "zigbee2mqtt/studioDimmer"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.battery }}"
+    device_class: "battery"
+
+  - platform: mqtt
+    name: "studio dimmer linkquality"
+    state_topic: "zigbee2mqtt/studioDimmer"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "lqi"
+    value_template: "{{ value_json.linkquality }}"
+    icon: "mdi:signal"
+
+# Light Studio
+  - platform: mqtt
+    name: "studio light linkquality"
+    state_topic: "zigbee2mqtt/studioLight"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "lqi"
+    value_template: "{{ value_json.linkquality }}"
+    icon: "mdi:signal"
+

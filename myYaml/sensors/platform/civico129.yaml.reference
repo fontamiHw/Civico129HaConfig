@@ -1,0 +1,17 @@
+  - platform: mqtt
+    name: "Civico129 Ligth"
+    unit_of_measurement: "lumen"
+    state_topic: "civico129/ligth"
+    value_template: "{{ value_json.Value }}"
+
+  - platform: mqtt
+    name: "Civico129 Temp"
+    unit_of_measurement: "C"
+    state_topic: "civico129/temp"
+    value_template: "{{ value_json.Value }}"
+    
+  - platform: mqtt
+    name: "Civico129 Disk usage"
+    unit_of_measurement: "%"
+    state_topic: "civico129/disk/usage"
+    value_template: "{{ value_json.Value }}"

@@ -1,0 +1,23 @@
+taverna_power_on_set:
+  name: Taverna Power On Set
+  options:
+    - 0
+    - 1
+    - 2
+    - 3
+
+tasmota_2_power_on_set:
+  name: Tasmota due Power On Set
+  options:
+    - 0
+    - 1
+    - 2
+    - 3
+
+tasmota_1_power_on_set:
+  name: Tasmota tre Power On Set
+  options:
+    - 0
+    - 1
+    - 2
+    - 3

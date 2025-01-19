@@ -1,0 +1,29 @@
+- id: '1704032910619'
+  alias: Solar Off
+  description: send Telegram notification when solaredge is not reacheable
+  trigger:
+  - platform: state
+    entity_id: device_tracker.solaredge
+    to: not_home
+  condition: []
+  action:
+  - service: notify.telegram_family
+    data:
+      message: ' controllare l''inverter '
+      title: SolarEdge DOWN !!!!!
+  mode: single
+- id: '1704033813198'
+  alias: Solar On
+  description: send Telegram notification when solaredge is reacheable
+  trigger:
+  - platform: state
+    entity_id: device_tracker.solaredge
+    to: home
+  condition: []
+  action:
+  - service: notify.telegram_family
+    data:
+      title: SolarEdge up & running
+      message: ' ok '
+  mode: single
+

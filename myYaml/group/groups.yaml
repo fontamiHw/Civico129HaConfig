@@ -1,0 +1,69 @@
+# Light Group
+  garden_switches:
+    name: Garden Switches
+    entities:
+     - switch.garden_light
+
+  celler_switches:
+    name: Celler Switches 
+    entities:
+     - switch.taverna
+     - switch.doccia_taverna
+ 
+  other_switches:
+    name: Other Switches
+    entities:
+     - switch.glass_light
+ 
+  entrance_switches:
+    name: Entrance Switches
+    entities:
+     - switch.living_room_shellyplus2pm_5443b23ae424_2
+     - switch.living_room_shellyplus2pm_5443b23ae424_1
+ 
+  smart_switches:
+    name: Smart Switches
+    entities:
+     - group.entrance_switches
+     - group.celler_switches
+     - group.garden_switches
+     - group.other_switches
+
+  ikea_light:
+    name: Ikea Light
+    entities:
+     - light.scala_0_light
+     - light.celler_light
+     - light.scala_1_light
+     - light.scala_2_light
+
+  all_lights:
+    name: all Civico129 ligths
+    entities:
+      - group.ikea_light
+      - group.smart_switches
+
+  external_cameras:
+    name: external cameras
+    entities:
+      - input_boolean.activate_external_cam
+
+  doors_sensor:
+    name: door open sensor
+    entities:
+      - automation.cellardoor
+      - automation.maindooropen
+
+
+# Tracker Group
+
+  hw_tracker:
+    name: hw tracker
+    entities:
+      - device_tracker.hitachitv
+
+  family_tracker:
+    name: family tracker
+    entities:
+      - binary_sensor.10_58_1_154
+      - binary_sensor.10_58_1_224

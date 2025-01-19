@@ -1,0 +1,31 @@
+- id: '1704621930486'
+  alias: showerDetection
+  description: Detect someone on the shower
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.shower_md
+    to: 'on'
+  condition: []
+    #- condition: sun
+    #after: sunset
+  action:
+  - service: switch.turn_on
+    entity_id: switch.doccia_taverna
+  mode: single
+
+- id: '1704622150634'
+  alias: Shower Switch off
+  description: Automatically switch off shower light
+  trigger:
+  - platform: state
+    entity_id: switch.doccia_taverna
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  condition: []
+  action:
+  - service: switch.turn_off
+    entity_id: switch.doccia_taverna
+  mode: single
