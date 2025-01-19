@@ -6,7 +6,7 @@
 #----------------------------------------
 switch:
   #----------------------------------------
-  # Celler
+  # Cellar
   #----------------------------------------
   - name: "taverna"
     state_topic: "zigbee2mqtt/cellarSwitch"
@@ -47,7 +47,29 @@ switch:
   #----------------------------------------
   #       SENSOR
   #----------------------------------------
-  #sensor:
+sensor:
+  #----------------------------------------
+  # Cellar
+  #----------------------------------------
+  - name: "Humidity Cellar Ambient"
+    state_topic: "zigbee2mqtt/cellarAmbient"
+    value_template: "{{ value_json.humidity }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Temp Cellar Ambient"
+    state_topic: "zigbee2mqtt/cellarAmbient"
+    value_template: "{{ value_json.temperature }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Battery Cellar Ambient"
+    state_topic: "zigbee2mqtt/cellarAmbient"
+    value_template: "{{ value_json.battery }}"
+    icon: "mdi:temperature-celsius"
+
+  - name: "Link Cellar Ambient"
+    state_topic: "zigbee2mqtt/cellarAmbient"
+    value_template: "{{ value_json.linkquality }}"
+    icon: "mdi:temperature-celsius"
 
   #----------------------------------------
   #       LIGHT
@@ -142,7 +164,7 @@ light:
   #----------------------------------------
 binary_sensor:
   #----------------------------------------
-  # Celler
+  # Cellar
   #----------------------------------------
   - name: "cellar door sensor"
     availability_topic: "zigbee2mqtt/cellarDoorSensor/availability"
@@ -196,26 +218,6 @@ binary_sensor:
     payload_on: true
     payload_off: false
     device_class: "motion"
-
-  - name: "Humidity Cellar Ambient"
-    state_topic: "zigbee2mqtt/cellarAmbient"
-    value_template: "{{ value_json.humidity }}"
-    icon: "mdi:temperature-celsius"
-
-  - name: "Temp Cellar Ambient"
-    state_topic: "zigbee2mqtt/cellarAmbient"
-    value_template: "{{ value_json.temperature }}"
-    icon: "mdi:temperature-celsius"
-
-  - name: "Battery Cellar Ambient"
-    state_topic: "zigbee2mqtt/cellarAmbient"
-    value_template: "{{ value_json.battery }}"
-    icon: "mdi:temperature-celsius"
-
-  - name: "Link Cellar Ambient"
-    state_topic: "zigbee2mqtt/cellarAmbient"
-    value_template: "{{ value_json.linkquality }}"
-    icon: "mdi:temperature-celsius"
 
   #----------------------------------------
   # Ground Floor
