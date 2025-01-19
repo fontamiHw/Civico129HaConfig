@@ -97,7 +97,7 @@
 - alias: Taverna Intrusion detection
   trigger:
     platform: state
-    entity_id: light.celler_light
+    entity_id: light.cellar_light
     to: 'on'
   condition:
   - condition: state

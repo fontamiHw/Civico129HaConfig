@@ -7,7 +7,7 @@
   condition: []
   action:
     - service: light.turn_on
-      entity_id: light.celler_light
+      entity_id: light.cellar_light
 
 - alias: "Turn off Celler Light"
   trigger:
@@ -17,12 +17,12 @@
   condition: []
   action:
     - service: light.turn_off
-      entity_id: light.celler_light
+      entity_id: light.cellar_light
 
 - alias: "Turn off Celler Time to sleep"
   trigger:
     platform: state
-    entity_id: light.celler_light
+    entity_id: light.cellar_light
     to: 'on'
     for:
       seconds: "100" 
@@ -36,4 +36,4 @@
     - service: light.turn_off
       data: {}
       target:
-        entity_id: light.celler_light
+        entity_id: light.cellar_light

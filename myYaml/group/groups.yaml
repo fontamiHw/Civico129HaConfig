@@ -33,7 +33,7 @@
     name: Ikea Light
     entities:
      - light.scala_0_light
-     - light.celler_light
+     - light.cellar_light
      - light.scala_1_light
      - light.scala_2_light
 

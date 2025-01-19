@@ -6,7 +6,7 @@
     # when light of scala AND taverna are off switch off the taverna,too
   - platform: state
     entity_id:
-    - light.celler_light
+    - light.cellar_light
     to: 'off'
   - platform: state
     entity_id:
@@ -19,7 +19,7 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: light.celler_light
+      entity_id: light.cellar_light
       state: 'off'
     - condition: state
       entity_id: light.scala_0_light
@@ -32,7 +32,7 @@
   trigger:
     # when light of scala or taverna is on switch on the taverna,too
     - platform: state
-      entity_id: light.celler_light
+      entity_id: light.cellar_light
       to: 'on'
     - platform: state
       entity_id: light.scala_0_light

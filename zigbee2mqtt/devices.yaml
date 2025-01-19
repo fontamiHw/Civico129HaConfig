@@ -7,7 +7,7 @@
 '0x000d6ffffe46919a':
   friendly_name: scala0Bottom
 '0x000d6ffffe14b448':
-  friendly_name: cellerLight
+  friendly_name: cellarLight
 '0x00124b00291118bf':
   friendly_name: scala2Bottom
 '0xec1bbdfffe40b122':
@@ -31,4 +31,4 @@
 '0x00124b00291331ed':
   friendly_name: cellarDoorSensor
 '0x00124b00254dd071':
-  friendly_name: cellerAmbient
+  friendly_name: cellarAmbient
