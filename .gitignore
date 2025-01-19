@@ -33,3 +33,7 @@ __pycache__/
 #ignore all the log files
 appdaemon/logs/
 zigbee2mqtt/log
+zigbee2mqtt/coordinator_backup.json
+zigbee2mqtt/coordinator_backup.json
+zigbee2mqtt/database.db
+zigbee2mqtt/state.json
