@@ -2,7 +2,7 @@
 - alias: "Turn on Celler Light"
   trigger:
     platform: state
-    entity_id: binary_sensor.celler_md
+    entity_id: binary_sensor.cellar_md
     to: 'on'
   condition: []
   action:
@@ -12,7 +12,7 @@
 - alias: "Turn off Celler Light"
   trigger:
     platform: state
-    entity_id: binary_sensor.celler_md
+    entity_id: binary_sensor.cellar_md
     to: 'off'
   condition: []
   action:

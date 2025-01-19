@@ -164,12 +164,12 @@ binary_sensor:
     payload_off: false
     device_class: "motion"
 
-  - name: "celler md"
-    availability_topic: "zigbee2mqtt/cellerMd/availability"
+  - name: "cellar md"
+    availability_topic: "zigbee2mqtt/cellarMd/availability"
     availability_template: "{{ value_json.state }}"
     payload_available: "online"
     payload_not_available: "offline"
-    state_topic: "zigbee2mqtt/cellerMd"
+    state_topic: "zigbee2mqtt/cellarMd"
     value_template: "{{ value_json.occupancy }}"
     payload_on: true
     payload_off: false
